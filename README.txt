@@ -31,13 +31,13 @@ We choosed New York City Leading Causes of Death. https://data.cityofnewyork.us/
 Then, we eliminated the year column and percentage column and expand the count column to be that number of lines of same records.
 
 
-(d) A clear description of how to run your program (note that your project must compile/run under Linux in your CS account)
-To run this program, you can use following command:
-sh run.sh INTEGRATED-DATASET.csv 0.1 0.3
+d. A clear description of how to run your program (note that your project must compile/run under Linux in your CS account)
+To run this program, you can run the shell script using following command structure:
+sh run.sh INTEGRATED-DATASET.csv min_sup min_conf
 Then, the result will be outputting to output.txt
 
 
-(e) The command line specification of an interesting sample run (i.e., a min_sup, min_conf combination that produces interesting results). 
+e. The command line specification of an interesting sample run (i.e., a min_sup, min_conf combination that produces interesting results). 
 The sample run use the command:
 sh run.sh INTEGRATED-DATASET.csv 0.05 0.1
 

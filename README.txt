@@ -32,6 +32,21 @@ Then, we eliminated the year column and percentage column and expand the count c
 
 
 (d) A clear description of how to run your program (note that your project must compile/run under Linux in your CS account)
-(e) A clear description of the internal design of your project; in particular, if you decided to implement variation(s) of the original a-priori algorithm (see above), you must explain precisely what variation(s) you have implemented and why
-The command line specification of an interesting sample run (i.e., a min_sup, min_conf combination that produces interesting results). Briefly explain why the results are interesting.
-Any additional information that you consider significant
+To run this program, you can use following command:
+sh run.sh INTEGRATED-DATASET.csv 0.1 0.3
+Then, the result will be outputting to output.txt
+
+
+(e) The command line specification of an interesting sample run (i.e., a min_sup, min_conf combination that produces interesting results). 
+The sample run use the command:
+sh run.sh INTEGRATED-DATASET.csv 0.05 0.1
+
+As an interesting result, we found that:
+1) Significantly more female than male are died because of diseases of heart.
+['DISEASES OF HEART'] => ['FEMALE'] (Conf: 54.0482740722%, Supp: 21.8484432638%)
+['DISEASES OF HEART'] => ['MALE'] (Conf: 45.9517259278%, Supp: 18.5754992929%)
+
+2) NON-HISPANIC White males are more likely to die for MALIGNANT NEOPLASMS than average male.
+['MALE', 'NON-HISPANIC WHITE'] => ['MALIGNANT NEOPLASMS'] (Conf: 28.6027179912%, Supp: 6.96009434002%)
+['MALE'] => ['MALIGNANT NEOPLASMS'] (Conf: 27.5603038855%, Supp: 13.5647349625%)
+

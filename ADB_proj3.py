@@ -1,8 +1,11 @@
-__author__ = 'youhanwang'
+__author__ = 'youhanwang & mengwang'
 
 import sys
 import csv
 
+"""
+Function to generate frequent item sets
+"""
 def generate_itemsets(input_file, min_sup, min_conf, output_file):
     reader = csv.reader(input_file)
     transactions = []
@@ -26,7 +29,6 @@ def generate_itemsets(input_file, min_sup, min_conf, output_file):
         candidates = apriori_gen(items)
         items = set()
         for candidate in candidates:
-            # print candidate , support(transactions, candidate)
             if support(transactions, candidate) >= min_sup * len(transactions):
                 items.add(frozenset(candidate))
         result.append(items)
@@ -48,7 +50,9 @@ def generate_itemsets(input_file, min_sup, min_conf, output_file):
 
 
 
-
+"""
+Function to generate association rules
+"""
 def generate_rules(transactions, itemsets, min_conf, output_file):
     result = []
     for itemset in itemsets[1:]:
@@ -61,14 +65,18 @@ def generate_rules(transactions, itemsets, min_conf, output_file):
                     sup = float(count_rule) / len(transactions)
                     result.append((lhs, rhs, conf, sup))
 
+    result.sort(key = lambda x : x[2], reverse = True)
 
-    result.sort(key = lambda x : x[3], reverse = True)
-
+    print >> output_file, ""
     print >> output_file, "==High-confidence association rules (min_conf= %s%%)" % (min_conf * 100)
     for line in result:
         print >> output_file, "%s => %s (Conf: %s%%, Supp: %s%%)" % (list(line[0]), [line[1]], line[2] * 100, line[3] * 100)
 
 
+"""
+Function to compute confidence
+Return count of left hand side and count of lhs union rhs
+"""
 def confidence(transactions, lhs, rule):
     count1 = 0
     count2 = 0
@@ -81,6 +89,9 @@ def confidence(transactions, lhs, rule):
     return count1, count2
 
 
+"""
+Apriori algorithm
+"""
 def apriori_gen(items):
     new_items = set()
     for item1 in items:
@@ -93,21 +104,27 @@ def apriori_gen(items):
 
 
 
-
+"""
+Function to compute support
+"""
 def support(transactions, item):
     count = 0
     for transaction in transactions:
         if item <= transaction:
-            count = count + 1
+            count += 1
 
     return count
 
 
+
+"""
+Function to define usage for user
+"""
 def usage():
     print """
     Usage:
     python <CSV-Input> <min_sum> <min_conf> <Output>
-    <CSV-Input> is the Integrated dataset
+    <CSV-Input> is the Integrated data set
     <min_sup>   is the minimum support requirement, range from 0 to 1.0
     <min_conf>  is the minimum confidence requirement, range from 0 to 1.0
     <Output>    is the output file
@@ -117,7 +134,7 @@ def usage():
     """
 
 if __name__ == "__main__":
-    if len(sys.argv) != 5: #Expecting 5 arguments.
+    if len(sys.argv) != 5:  # Expecting 5 arguments.
         usage()
         exit(2)
 
